@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:11.3.0
+      
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install && yarn build
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      
+      - run: sudo apt install python-pip && sudo pip install awscli
+      
+      - run: aws s3 sync /home/circleci/project/build s3:////rentalated-hosting-bucket-s3bucket-pq6al8rbfuy9.s3.amazonaws.com/ --delete
