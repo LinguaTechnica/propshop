@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1>Rentalated</h1>
-          <img src="https://secure.i.telegraph.co.uk/multimedia/archive/02619/weather-hot_2619705b.jpg" />
-        </header>
-      </div>
-    );
-  }
-}
+import PrivateRoute from "./components/partials/privateRoute/PrivateRoute"
+import HomePage from "./components/pages/home/HomePage"
+import LoginPage from "./components/pages/login/LoginPage"
+
+const App = () => (
+  <Router>
+    <div>
+      <Route path="/login" component={LoginPage} />
+      <PrivateRoute path="/home" component={HomePage} />
+    </div>
+  </Router>
+);
 
 export default App;
