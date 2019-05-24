@@ -1,3 +1,22 @@
+# Cloudformation Commands
+
+Create stack
+```
+aws cloudformation create-stack --stack-name rentalated-front-end --template-body file://cloudFormationTemplates/s3SiteHosting.yml
+```
+
+Check stack
+```
+aws cloudformation describe-stacks --stack-name rentalated-front-end
+```
+
+Update stack
+```
+aws cloudformation update-stack --stack-name rentalated-front-end --template-body file://cloudFormationTemplates/s3SiteHosting.yml
+```
+
+# Create React App Boilerplate
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
