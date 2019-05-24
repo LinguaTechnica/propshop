@@ -15,7 +15,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: unset CI && npm install && npm build
+      - run: unset CI && npm install && npm run-script build
 
       - save_cache:
           paths:
