@@ -15,7 +15,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: unset CI && yarn install && yarn build
+      - run: unset CI && npm install && npm build
 
       - save_cache:
           paths:
