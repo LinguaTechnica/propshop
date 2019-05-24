@@ -23,6 +23,7 @@ class PrivateRoute extends React.Component {
           })
         },
         () => {
+          console.log('caught rejected promise')
           this.setState({
             loggedIn: false,
             tokenVerified: true
@@ -35,19 +36,23 @@ class PrivateRoute extends React.Component {
     const { component: Component, ...rest } = this.props
     let toRender = <img src="loader.gif" alt="loading gif" />
     if (this.state.tokenVerified) {
-      toRender = (
-        <Route
-          {...rest}
-          render={props => {
-              return this.state.loggedIn ? (
-                <Component {...props} />
-              ) : (
-                <Redirect to={{ pathname: '/login', state: { referrer: props.location } }} />
-              )
-            }
-          }
-        />
+      toRender = this.state.loggedIn ? (
+        <Component {...rest} />
+      ) : (
+        <Redirect to={{ pathname: '/login' }} />
       )
+        // <Route
+        //   {...rest}
+        //   render={props => {
+        //     console.log('rendering from renderprops')
+        //       return this.state.loggedIn ? (
+        //         <Component {...props} />
+        //       ) : (
+        //         <Redirect to={{ pathname: '/login', state: { referrer: props.location } }} />
+        //       )
+        //     }
+        //   }
+        // />
     }
     return toRender
   }

@@ -17,10 +17,7 @@ class LoginPage extends React.Component {
             .then(
                 resp => {
                     localStorage.setItem("session_token",resp.text)
-                    this.props.history.push(
-                        this.props.location.state.referrer ? 
-                            this.props.location.state.referrer.pathname : "/home"
-                        )
+                    this.props.history.push( "/home")
                 },
                 err => alert(err)
             )
