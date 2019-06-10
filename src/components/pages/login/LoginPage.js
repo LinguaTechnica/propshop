@@ -27,11 +27,19 @@ class LoginPage extends React.Component {
         console.log(this.props)
         return (
             <form onSubmit={this.handleSubmit}>
-                <input name="email" placeholder="email"/>
-                <input name="first_name" placeholder="first name"/>
-                <input name="last_name" placeholder="last name"/>
-                <input name="password" placeholder="password" type="password"/>
-                <button type="submit" />
+                <div className="form-group">
+                    <input name="email" placeholder="email"/>
+                </div>
+                <div className="form-group">
+                    <input name="first_name" placeholder="first name"/>
+                </div>
+                <div className="form-group">
+                    <input name="last_name" placeholder="last name"/>
+                </div>
+                <div className="form-group">
+                    <input name="password" placeholder="password" type="password"/>
+                </div>
+                <button className="btn btn-primary" type="submit">Login</button>
             </form>
         )
     }
