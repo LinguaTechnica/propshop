@@ -1,8 +1,3 @@
-
-export const accountsEndpoint = "http://localhost:5000"
-
-export const propertiesListingsEndpoint = ""
-
-export const tokenEndpoint = "https://fo82pqxd3j.execute-api.us-east-2.amazonaws.com/Prod/token_service"
-
-// export const tokenEndpoint = "http://localhost:3001/token_service"
+export const accountsEndpoint = process.env.REACT_APP_ACCOUNTS_URL;
+export const tokenEndpoint = process.env.REACT_APP_TOKEN_URL;
+export const propertiesEndpoint = process.env.REACT_APP_PROPERTIES_URL;
