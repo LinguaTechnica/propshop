@@ -1,13 +1,30 @@
 import React from 'react'
+import LoginPage from "../login";
 
-class HomeComponent extends React.Component {
+/**
+ * Home Page
+ *  @desc default user landing page
+ *  @type function(*): * functional component
+ *  @param props
+ *  - Props as args
+ *  - No internal state
+ *  - No lifecycle methods
+ *
+ */
+const HomePage = (props) => {
 
-    render() {
-        const isLoggedIn = this.props.isAuthenticated;
+    const isLoggedIn = props.isAuthenticated;
 
-        return (
-            { isLoggedIn }
-            <h1>Welcome!</h1>
-        )
-    }
-}
+    // TODO: render PropertyListing or other WelcomeComponent stuff?
+    return (
+        <div>
+            { isLoggedIn ?
+                <h1>Welcome!</h1>
+                :
+                <LoginPage {...props} />
+            }
+        </div>
+    )
+};
+
+export default HomePage;
