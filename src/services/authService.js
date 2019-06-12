@@ -1,12 +1,18 @@
 import request from 'superagent'
-
 import { accountsEndpoint, tokenEndpoint } from "../config"
 
+/**
+ * AuthService
+ * @desc minimalist implementation, app-wide shared auth
+ */
 class AuthService {
     constructor() {
         this.isAuthenticated = false;
         this.isAuthorized = false;
         this.sessionToken = localStorage.getItem('session_token');
+
+        this.logIn = this.logIn.bind(this);
+        this.isLoggedIn = this.isLoggedIn.bind(this);
     }
 
     isLoggedIn() {
@@ -39,9 +45,11 @@ class AuthService {
             .set("Content-Type", "application/json")
             .send(userData)
             .then((res) => {
-                console.log('Successful login: ', res.ok);
+                console.log('Successful login? ', res.ok, res.body);
                 this.isAuthenticated = true;
-                // TODO: How many kinds of user auth needed?
+                return res.body
+                // TODO: How many kinds of user auth needed? is a token returned?
+                // this.sessionToken = res.body.token
                 // this.isAuthorized = true;
             })
             .catch(err => console.error(err))
@@ -53,4 +61,5 @@ class AuthService {
 
 }
 
-export default AuthService;
+const auth = new AuthService();
+export default auth;
