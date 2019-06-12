@@ -8,6 +8,7 @@ import LoginPage from "./components/pages/login"
 import RegistrationPage from "./components/pages/registration";
 import UserDetail from './components/pages/user';
 import auth from './services/authService';
+import PropertyList from "./components/propertyList";
 
 class App extends React.Component {
     constructor(props) {
@@ -58,6 +59,7 @@ class App extends React.Component {
                     <PrivateRoute path="/me" authorize={ this.authorize } component={ UserDetail } />
                     <Route path="/login" render={ (props) => <LoginPage authenticate={ auth.logIn } {...props} /> } />
                     <Route path="/register" render={ (props) => <RegistrationPage register={ auth.register } {...props} /> } />
+                    <Route path="/properties" render={ (props) => <PropertyList {...props} /> } />
                     <Route path="/" render={ (props) => <HomePage authenticate={ auth.logIn } {...props} /> } />
                 </Switch>
             </div>
