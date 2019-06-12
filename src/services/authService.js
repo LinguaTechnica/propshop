@@ -20,12 +20,12 @@ class AuthService {
 
         // TODO: how do we want to use this? returns object with token? token? boolean?
         return new Promise((res, rej) => {
-            console.log("CHECKING SESSION TOKEN");
+            console.info('INFO', 'Checking session token ...');
                 request.post(tokenEndpoint)
                     .set("Content-Type", "application/json")
                     .send({ auth_header: this.sessionToken })
                     .then(resp => {
-                            console.log("success response from token check", resp);
+                            console.log('INFO', resp.status);
                             if (resp.ok) {
                                 this.isAuthorized = true;
                                 return res(resp)
@@ -34,7 +34,7 @@ class AuthService {
                             }
                         },
                         err => {
-                            console.log("error response from token check", err);
+                            console.error(err);
                             return rej(err)
                         })
         })

@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-// import PrivateRoute from "./components/partials/privateRoute/PrivateRoute"
+import PrivateRoute from "./components/partials/privateRoute/PrivateRoute"
 import HomePage from "./components/pages/home";
 import Navbar from './components/partials/navbar';
 import LoginPage from "./components/pages/login"
-import auth from './services/authService';
 import RegistrationPage from "./components/pages/registration";
+import UserDetail from './components/pages/user';
+import auth from './services/authService';
 
 class App extends React.Component {
     constructor(props) {
@@ -34,15 +35,10 @@ class App extends React.Component {
 
     /**
      * Authorize
-     * @desc Gets token and verifies authorization
+     * @desc Updates authorization.
      */
     authorize() {
-        auth.isLoggedIn()
-            .then(
-                () => this.setState(({ isAuthorized: true })),
-                () => this.setState(({ isAuthorized: false }))
-            )
-            .catch((err) => console.log(err));
+        this.setState(({ isAuthorized: auth.isAuthorized }))
     }
 
     register(userData) {
@@ -56,10 +52,10 @@ class App extends React.Component {
         // TODO: try implementing private route with tests first
         return (
             <div className="app-container">
-                <Navbar isAuthorized={ this.isAuthorized } />
+                <Navbar isAuthorized={ this.state.isAuthorized } />
 
                 <Switch>
-                    {/*<PrivateRoute path="/me" isAuthorized={ this.authorize } component={ User } />*/}
+                    <PrivateRoute path="/me" authorize={ this.authorize } component={ UserDetail } />
                     <Route path="/login" render={ (props) => <LoginPage authenticate={ auth.logIn } {...props} /> } />
                     <Route path="/register" render={ (props) => <RegistrationPage register={ auth.register } {...props} /> } />
                     <Route path="/" render={ (props) => <HomePage authenticate={ auth.logIn } {...props} /> } />

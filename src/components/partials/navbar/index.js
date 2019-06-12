@@ -13,22 +13,25 @@ function Navbar(props) {
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
-                    { props.isAuthenticated ?
+                    { props.isAuthorized ?
                         <li className="nav-item">
-                            <Link to="/profile">Profile</Link>
+                            <Link to="/me">
+                                <i className="fas fa-user"></i> My Account</Link>
                         </li>
                         :
-                        <li className="nav-item">
-                            <Link to="/login">
-                                <span><i className="fas fa-sign-in-alt"></i> Login</span>
-                            </Link>
-                        </li>
+                        <div>
+                            <li className="nav-item">
+                                <Link to="/login">
+                                    <span><i className="fas fa-sign-in-alt"></i> Login</span>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/register">
+                                    <span><i className="fas fa-user-plus"></i> Signup</span>
+                                </Link>
+                            </li>
+                        </div>
                     }
-                    <li className="nav-item">
-                        <Link to="/register">
-                            <span><i className="fas fa-user-plus"></i> Signup</span>
-                        </Link>
-                    </li>
                 </ul>
             </div>
         </nav>
