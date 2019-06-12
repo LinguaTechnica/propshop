@@ -1,9 +1,11 @@
 import request from 'superagent'
 import { accountsEndpoint, signupEndpoint, tokenEndpoint } from "../config"
+import { userService } from './users';
 
 /**
  * AuthService
- * @desc minimalist implementation, app-wide shared auth
+ * @desc minimalist implementation, app-wide shared auth.
+ * Service manages login, registration and token verification.
  */
 class AuthService {
     constructor() {
@@ -47,6 +49,8 @@ class AuthService {
             .then((res) => {
                 console.log('Successful login? ', res.ok, res.body);
                 this.isAuthenticated = true;
+                // TODO: Make sure res.body is a user object, not nested
+                userService.refresh(res.body);
                 return res.body
                 // TODO: How many kinds of user auth needed? is a token returned?
                 // this.sessionToken = res.body.token
