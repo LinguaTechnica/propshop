@@ -6,6 +6,7 @@ import HomePage from "./components/pages/home";
 import Navbar from './components/partials/navbar';
 import LoginPage from "./components/pages/login"
 import auth from './services/authService';
+import RegistrationPage from "./components/pages/registration";
 
 class App extends React.Component {
     constructor(props) {
@@ -17,6 +18,7 @@ class App extends React.Component {
 
         this.authenticate = this.authenticate.bind(this);
         this.authorize = this.authorize.bind(this);
+        this.register = this.register.bind(this);
     }
 
     /**
@@ -43,6 +45,12 @@ class App extends React.Component {
             .catch((err) => console.log(err));
     }
 
+    register(userData) {
+        auth.register(userData)
+            .then(() => this.setState(({ isAuthorized: true })))
+            .catch((err) => console.log(err));
+    }
+
     // Every component needs to render HTML to the DOM. No exceptions.
     render() {
         // TODO: try implementing private route with tests first
@@ -53,6 +61,7 @@ class App extends React.Component {
                 <Switch>
                     {/*<PrivateRoute path="/me" isAuthorized={ this.authorize } component={ User } />*/}
                     <Route path="/login" render={ (props) => <LoginPage authenticate={ auth.logIn } {...props} /> } />
+                    <Route path="/register" render={ (props) => <RegistrationPage register={ auth.register } {...props} /> } />
                     <Route path="/" render={ (props) => <HomePage authenticate={ auth.logIn } {...props} /> } />
                 </Switch>
             </div>

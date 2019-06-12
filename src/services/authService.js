@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { accountsEndpoint, tokenEndpoint } from "../config"
+import { accountsEndpoint, signupEndpoint, tokenEndpoint } from "../config"
 
 /**
  * AuthService
@@ -46,6 +46,21 @@ class AuthService {
             .send(userData)
             .then((res) => {
                 console.log('Successful login? ', res.ok, res.body);
+                this.isAuthenticated = true;
+                return res.body
+                // TODO: How many kinds of user auth needed? is a token returned?
+                // this.sessionToken = res.body.token
+                // this.isAuthorized = true;
+            })
+            .catch(err => console.error(err))
+    };
+
+    register(userData) {
+        return request.post(signupEndpoint)
+            .set("Content-Type", "application/json")
+            .send(userData)
+            .then((res) => {
+                console.log('Successful signup? ', res.ok, res.body);
                 this.isAuthenticated = true;
                 return res.body
                 // TODO: How many kinds of user auth needed? is a token returned?

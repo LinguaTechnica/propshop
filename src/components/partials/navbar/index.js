@@ -25,9 +25,9 @@ function Navbar(props) {
                         </li>
                     }
                     <li className="nav-item">
-                        <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">
+                        <Link to="/register">
                             <span><i className="fas fa-user-plus"></i> Signup</span>
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>
