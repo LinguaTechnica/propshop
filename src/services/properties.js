@@ -1,6 +1,11 @@
 import request from 'superagent';
 import { propertiesEndpoint } from "../config";
 
+/**
+ * Property Service
+ * @desc manages data storage of properties which can be accessed by any
+ * component with access to localStorage
+ */
 export class PropertyService {
     constructor() {
         if (!localStorage.getItem('properties')) {
@@ -51,7 +56,7 @@ export class PropertyService {
     updateStore(properties) {
         console.info('INFO', 'all properties updated')
         localStorage.setItem('properties', JSON.stringify(properties));
-        this.properties = JSON.parse(localStorage.getItem('properties'));
+        this.properties = properties;
         return this.properties
     }
 
