@@ -5,8 +5,14 @@ class PropertyList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            properties: [{id: '123', name: 'Test Property', address: '123 Main Street'}]
+            properties: []
         }
+    }
+
+    componentWillMount() {
+        this.props.getProperties()
+            .then((properties) => this.setState({ properties }))
+            .catch(console.error)
     }
 
     createPropertyElements() {
