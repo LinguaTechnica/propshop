@@ -15,21 +15,20 @@ class AuthService {
 
         this.logIn = this.logIn.bind(this);
         this.isLoggedIn = this.isLoggedIn.bind(this);
+        this.updateStore = this.updateStore.bind(this);
     }
 
     isLoggedIn() {
-        if (!this.sessionToken) return false;
-
         // TODO: how do we want to use this? returns object with token? token? boolean?
         return new Promise((res, rej) => {
             console.info('INFO', 'Checking session token ...');
+            if (!this.sessionToken) {
                 request.post(tokenEndpoint)
                     .set("Content-Type", "application/json")
-                    .send({ auth_header: this.sessionToken })
                     .then(resp => {
-                            console.log('INFO', resp.status);
                             if (resp.ok) {
                                 this.isAuthorized = true;
+                                this.updateStore(resp.body.token);
                                 return res(resp)
                             } else {
                                 return rej(resp)
@@ -39,7 +38,16 @@ class AuthService {
                             console.error(err);
                             return rej(err)
                         })
+            } else {
+                this.isAuthorized = true;
+                return res(true)
+            }
         })
+    }
+
+    updateStore(token) {
+        localStorage.setItem('session_token', token);
+        this.sessionToken = token;
     }
 
     logIn(userData) {
