@@ -49,6 +49,8 @@ class App extends React.Component {
             .catch((err) => console.log(err));
     }
 
+    // TODO: add logout() method
+
     // Every component needs to render HTML to the DOM. No exceptions.
     render() {
         // TODO: try implementing private route with tests first
@@ -58,10 +60,10 @@ class App extends React.Component {
 
                 <Switch>
                     <PrivateRoute path="/me" authorize={ this.authorize } component={ UserDetail } />
+                    <PrivateRoute path="/properties" authorize={ this.authorize } component={ PropertyList} properties={ propertyService.properties } {...this.props} /> } />
                     <Route path="/login" render={ (props) => <LoginPage authenticate={ auth.logIn } {...props} /> } />
                     <Route path="/register" render={ (props) => <RegistrationPage register={ auth.register } {...props} /> } />
-                    <Route path="/properties" render={ (props) => <PropertyList getProperties={ propertyService.getProperties } {...props} /> } />
-                    <Route path="/" render={ (props) => <HomePage authenticate={ auth.logIn } {...props} /> } />
+                    <Route path="/" render={ (props) => <HomePage isAuthenticated={ this.state.isAuthenticated } authenticate={ auth.logIn } {...props} /> } />
                 </Switch>
             </div>
         );

@@ -1,5 +1,8 @@
 import React from 'react'
 import LoginPage from "../login";
+import PropertyList from '../property';
+import { Redirect } from "react-router-dom";
+import {propertyService} from "../../../services/properties";
 
 /**
  * Home Page
@@ -19,7 +22,7 @@ const HomePage = (props) => {
     return (
         <div>
             { isLoggedIn ?
-                <h1>Welcome!</h1>
+                <Redirect to={{ pathname: '/properties' }} />
                 :
                 <LoginPage {...props} />
             }
