@@ -50,7 +50,7 @@ const RegistrationPage = (props) => {
                 <input name="email" placeholder="Email" type="email"/>
             </div>
             <div className="form-group">
-                <input name="password" placeholder="Email" type="password"/>
+                <input name="password" placeholder="Password" type="password"/>
             </div>
             <div className="form-group">
                 <input name="passwordConf" placeholder="Confirm Password" type="password"/>
