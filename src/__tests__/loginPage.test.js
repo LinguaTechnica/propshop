@@ -1,6 +1,4 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import LoginPage from '../components/pages/login';
+import LoginPage from '../components/login';
 
 describe('LoginPage Component', function() {
     it('should render without throwing an error', () => {

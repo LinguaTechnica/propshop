@@ -2,14 +2,16 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import PrivateRoute from "./components/partials/privateRoute/PrivateRoute"
-import HomePage from "./components/pages/home";
+import HomePage from "./components/home";
 import Navbar from './components/partials/navbar';
-import LoginPage from "./components/pages/login"
-import RegistrationPage from "./components/pages/registration";
-import UserDetail from './components/pages/user';
+import LoginPage from "./components/login"
+import RegistrationPage from "./components/registration";
+import UserDetail from './components/user';
 import auth from './services/authService';
 import { propertyService } from './services/properties';
+import { propertyListingService } from "./services/listings";
 import PropertyList from "./components/propertyList";
+import PropertyListingList from './components/listingsList'
 
 class App extends React.Component {
     constructor(props) {
@@ -61,6 +63,7 @@ class App extends React.Component {
                 <Switch>
                     <PrivateRoute path="/me" authorize={ this.authorize } component={ UserDetail } />
                     <PrivateRoute path="/properties" authorize={ this.authorize } component={ PropertyList} properties={ propertyService.properties } {...this.props} /> } />
+                    <PrivateRoute path="/listings" authorize={ this.authorize } component={ PropertyListingList} listings={ propertyListingService.properties } {...this.props} /> } />
                     <Route path="/login" render={ (props) => <LoginPage authenticate={ auth.logIn } {...props} /> } />
                     <Route path="/register" render={ (props) => <RegistrationPage register={ auth.register } {...props} /> } />
                     <Route path="/" render={ (props) => <HomePage isAuthenticated={ this.state.isAuthenticated } authenticate={ auth.logIn } {...props} /> } />
