@@ -1,5 +1,5 @@
 import React from 'react';
-import PropertyDetail from '../pages/property'
+import PropertyDetail from '../property';
 import { propertyService } from "../../services/properties";
 
 class PropertyList extends React.Component {
