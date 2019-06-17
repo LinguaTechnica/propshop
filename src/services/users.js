@@ -40,6 +40,4 @@ export class UserService {
     }
 }
 
-// Ease-of-use utility
-export const userStore = JSON.parse(localStorage.getItem('users'));
 export const userService = new UserService();

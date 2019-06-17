@@ -1,4 +1,5 @@
 import request from 'superagent'
+import jwtDecode from 'jwt-decode';
 import { accountsEndpoint, signupEndpoint, tokenEndpoint } from "../config"
 import { userService } from './users';
 
@@ -84,6 +85,17 @@ class AuthService {
 
     static sign(requestInProgress) {
         requestInProgress.set('Authorization', 'bearer ' + localStorage.getItem('session_token'));
+    }
+
+    /**
+     * @desc utility function for decoding tokens throughout the app
+     * @param token
+     */
+    static decodeToken(token) {
+        const payload = jwtDecode(token);
+        // FIXME: accounts service returns email, but should return user_id. no PII
+        // LINK: https://github.com/gSchool/rentalated-accounts/blob/master/src/app/models/user.py#L36
+        localStorage.setItem('user', JSON.stringify(payload.userId));
     }
 
 }

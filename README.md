@@ -15,6 +15,52 @@ Update stack
 aws cloudformation update-stack --stack-name rentalated-front-end --template-body file://cloudFormationTemplates/s3SiteHosting.yml
 ```
 
+## Development Notes
+
+> Updating any of the values in your .env file requires a full restart of the app
+
+Requires a test server running on `localhost:5000`. The backends can be found here:
+
+* Backends: https://github.com/gschool?q=rentalated
+* API Documentation: https://documenter.getpostman.com/view/250019/S1Zw8BDS?version=latest
+
+To setup:
+``` 
+npm install
+cp .env.example .env.development  # CHECK THIS FILE BEFORE RUNNING SERVER
+npm start
+```
+
+To run tests:
+``` 
+cp .env.development .env.test
+npm test
+```
+
+# Service API Requirements
+
+To view request and response formats, visit the link below.
+Link: https://documenter.getpostman.com/view/250019/S1Zw8BDS?version=latest
+
+Summary:
+``` 
+GET     /api/v1/properties
+POST    /api/v1/properties
+GET     /api/v1/properties/:id
+PUT     /api/v1/properties/:id
+
+GET     /api/v1/listings
+POST    /api/v1/listings
+GET     /api/v1/listings/:id
+PUT     /api/v1/listings/:id
+
+POST    /api/v1/signup     
+POST    /api/v1/login
+POST    /api/v1/token
+```
+
+api/register >> accounts service >> token service >> client response
+
 # Create React App Boilerplate
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
