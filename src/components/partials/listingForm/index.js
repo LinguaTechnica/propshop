@@ -1,52 +1,68 @@
 import React from 'react'
 
 /**
- * Login Page
+ * Property Listing Form
  *  @desc handles user login
- *  @type function: functional component
  *  @param props
- *  - Props as args
- *  - No internal state
- *  - No lifecycle methods
  *
  */
-export const PropertyListingForm = (props) => {
-
+export class PropertyListingForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            listing: {
+                startDate: '',
+                endDate: '',
+                propertyId: this.props.propertyId
+            },
+            inValidForm: true
+        };
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.validateField = this.validateField.bind(this);
+        this.validateForm = this.validateForm.bind(this);
+    }
     /**
-     * @desc List form handler for
+     * @desc Listing form handler
      * @param e: form event
      */
-    const handleSubmit = (e) => {
+    handleSubmit(e) {
         e.preventDefault();
-        let userData;
-        // if (e.target.start.value < end.target.end.value) {
-            userData = {
-                start: e.target.start.value,
-                end: e.target.end.value,
-            // };
-        }
-
-        // TODO: consider just using AuthService right here?
-        props.authenticate(userData)
-            .then(
-                resp => {
-                    localStorage.setItem("session_token", resp.text);
-                    props.history.push( "/listings")
-                },
-                err => alert(err)
-            )
+        let listingData = {
+            propertyId: this.props.listing.propertyId,
+            start: e.target.start.value,
+            end: e.target.end.value,
+        };
+        this.props.create(listingData);
     };
 
+    validateField(e) {
+        e.preventDefault();
+        const { name, value } = e.target;
+        this.setState({ [name]: value });
+    };
+
+    validateForm(e) {
+        e.preventDefault();
+        let { startDate, endDate } = this.state.listing;
+        startDate = new Date(startDate);
+        endDate = new Date(endDate);
+        const inValidForm = startDate > endDate;
+        this.setState({ inValidForm })
+    }
+
     // TODO: why does a login form need user first and last name? Remove ...
-    return (
-        <form onSubmit={handleSubmit}>
-           <div className="form-group">
-                <input name="start" placeholder="Start Date" type="date"/>
-            </div>
-            <div className="form-group">
-                <input name="end" placeholder="End Date" type="date"/>
-            </div>
-            <button className="btn btn-primary" type="submit">List My Property</button>
-        </form>
-    )
-};
+    render() {
+        const { inValidForm } = this.state;
+        return (
+            <form onSubmit={ this.handleSubmit } onChange={ this.validateForm }>
+                <div className="form-group">
+                    <input name="start" onChange={ this.validateField } placeholder="Start Date" type="date"/>
+                </div>
+                <div className="form-group">
+                    <input name="end" onChange={ this.validateField } placeholder="End Date" type="date"/>
+                </div>
+                <button className="btn btn-primary" type="submit" disabled={ inValidForm }>List My Property</button>
+            </form>
+        )
+    }
+}
