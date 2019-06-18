@@ -1,5 +1,5 @@
 import request from 'superagent';
-import { propertiesEndpoint } from "../config";
+import {listingsEndpoint, propertiesEndpoint} from "../config";
 
 /**
  * Property Service
@@ -58,6 +58,19 @@ export class PropertyService {
         localStorage.setItem('properties', JSON.stringify(properties));
         this.properties = properties;
         return this.properties
+    }
+
+    /**
+     * @desc send an API request to create an new property
+     * @param listingData
+     * @return {*}
+     */
+    create(propertyData) {
+        console.info('INFO', 'creating a new property...');
+        return request.post(propertiesEndpoint)
+            .set('Content-Type', 'application/json')
+            .send(propertyData)
+            .then(res => this.getProperties(res.body))
     }
 
     /**

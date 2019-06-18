@@ -61,7 +61,20 @@ export class PropertyListingService {
     }
 
     /**
-     * @desc send request to update property information
+     * @desc send an API request to create an new listing
+     * @param listingData
+     * @return {*}
+     */
+    create(listingData) {
+        console.info('INFO', 'creating a new listing...');
+        return request.post(listingsEndpoint)
+            .set('Content-Type', 'application/json')
+            .send(listingData)
+            .then(res => this.getListings(res.body.userId))
+    }
+
+    /**
+     * @desc send request to update listing information
      * @param propertyData: object
      * @return {promise}
      */
@@ -70,7 +83,19 @@ export class PropertyListingService {
         return request.put(listingsEndpoint)
             .set('Content-Type', 'application/json')
             .send(listingData)
-            .then((res) => this.updateStore(res.body))
+            .then((res) => this.getListings(res.body.userId))
+    }
+
+    /**
+     * @desc send request to delete a listing
+     * @param listingId
+     * @return {*}
+     */
+    delete(listingId) {
+        console.info('INFO', 'sending list update request...');
+        return request.delete(listingsEndpoint + `/${listingId}`)
+            .set('Content-Type', 'application/json')
+            .then((res) => this.getListings(res.body.userId))
     }
 }
 
