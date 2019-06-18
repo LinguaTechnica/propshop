@@ -14,10 +14,20 @@ function Navbar(props) {
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     { props.isAuthorized ?
-                        <li className="nav-item">
-                            <Link to="/me">
-                                <i className="fas fa-user"></i> My Account</Link>
-                        </li>
+                        <div><
+                            li className="nav-item">
+                                <Link to="/me">
+                                    <i className="fas fa-user"></i> My Account</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/properties">
+                                    <i className="fas fa-home"></i> My Properties</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/listings">
+                                    <i className="fas fa-sign"></i> My Listings</Link>
+                            </li>
+                        </div>
                         :
                         <div>
                             <li className="nav-item">
