@@ -15,9 +15,11 @@ export class PropertyListingService {
 
         this.get = this.get.bind(this);
         this.all = this.all.bind(this);
+        this.update = this.update.bind(this);
+        this.create = this.create.bind(this);
+        this.delete = this.delete.bind(this);
         this.getListings = this.getListings.bind(this);
         this.updateStore = this.updateStore.bind(this);
-        this.update = this.update.bind(this);
     }
 
     /**
@@ -43,6 +45,7 @@ export class PropertyListingService {
      * TODO: Eventually need this to search by user_id
      */
     getListings(userId) {
+        console.info('INFO', 'fetching listings...');
         return request.get(listingsEndpoint)
             .set('Content-Type', 'application/json')
             .then((res) => this.updateStore(res.body))
@@ -54,7 +57,7 @@ export class PropertyListingService {
      * @return {object}
      */
     updateStore(listings) {
-        console.info('INFO', 'all listings updated')
+        console.info('INFO', 'all listings updated');
         localStorage.setItem('listings', JSON.stringify(listings));
         this.listings = listings;
         return this.listings
