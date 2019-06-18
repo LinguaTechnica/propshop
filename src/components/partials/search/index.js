@@ -18,6 +18,7 @@ export const SearchForm = (props) => {
      * @param e
      * @return {*}
      */
+    // eslint-disable-next-line
     const handleSearch = (e) => {
         e.preventDefault();
         const query = e.target.query.value;
