@@ -1,13 +1,19 @@
 import React from 'react';
 import ListingDetail from '../listing';
 import { propertyListingService } from "../../services/listings";
+import { SearchForm } from '../partials/search';
 
 export default class PropertyListingList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            listings: []
-        }
+            listings: [],
+            searchResults: []
+        };
+        this.search = this.search.bind(this);
+        this.resetListings = this.resetListings.bind(this);
+        this.dynamicSearch = this.dynamicSearch.bind(this);
+        this.createSearchElements = this.createSearchElements.bind(this);
     }
 
     /**
@@ -33,13 +39,65 @@ export default class PropertyListingList extends React.Component {
         })
     }
 
+    /**
+     * @desc creates PropertyDetail elements for search results
+     * @return {*[]}
+     */
+    createSearchElements() {
+        return this.state.searchResults.map((listing) => {
+            return <ListingDetail key={ listing.id } {...listing} {...listing.property} />
+        })
+    }
+
+    search(query) {
+        const { listings } = this.state;
+        const searchResults = listings.reduce((acc, listing) => {
+             Object.keys(listing.property)
+                .map(k => {
+                if (typeof(listing.property[k]) !== 'number') {
+                    if (listing.property[k].toLowerCase().includes(query.toLowerCase())) {
+                        acc.push(listing);
+                    }
+                }
+            });
+            return acc;
+        }, []);
+
+        this.setState({ searchResults })
+    }
+
+    dynamicSearch(query) {
+        const { listings } = this.state;
+        if (query.length > 3) {
+            const searchResults = listings.reduce((acc, listing) => {
+                Object.keys(listing.property)
+                    .map(k => {
+                        if (typeof(listing.property[k]) !== 'number') {
+                            if (listing.property[k].toLowerCase().includes(query.toLowerCase())) {
+                                acc.push(listing);
+                            }
+                        }
+                    });
+                return acc;
+            }, []);
+
+            this.setState({ searchResults })
+        }
+    }
+
+    resetListings(){
+        this.setState({ searchResults: [] })
+    }
+
     render() {
         const listings = this.createPropertyElements();
+        const searchResults = this.createSearchElements();
 
         return (
             <div>
+                <SearchForm search={ this.search } change={ this.dynamicSearch } reset={ this.resetListings } />
                 <h1>My Listings</h1>
-                { listings }
+                { searchResults.length > 0 ? searchResults : listings }
             </div>
         );
     }
