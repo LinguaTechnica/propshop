@@ -49,10 +49,16 @@ export default class PropertyListingList extends React.Component {
         })
     }
 
+    /**
+     * Static Search
+     * @desc users must click submit to see results
+     * @param query
+     */
     search(query) {
         const { listings } = this.state;
         const searchResults = listings.reduce((acc, listing) => {
              Object.keys(listing.property)
+             // eslint-disable-next-line
                 .map(k => {
                 if (typeof(listing.property[k]) !== 'number') {
                     if (listing.property[k].toLowerCase().includes(query.toLowerCase())) {
@@ -66,11 +72,17 @@ export default class PropertyListingList extends React.Component {
         this.setState({ searchResults })
     }
 
+    /**
+     * Dynamic Search
+     * @desc results display as the user types
+     * @param query
+     */
     dynamicSearch(query) {
         const { listings } = this.state;
         if (query.length > 3) {
             const searchResults = listings.reduce((acc, listing) => {
                 Object.keys(listing.property)
+                // eslint-disable-next-line
                     .map(k => {
                         if (typeof(listing.property[k]) !== 'number') {
                             if (listing.property[k].toLowerCase().includes(query.toLowerCase())) {
@@ -85,6 +97,9 @@ export default class PropertyListingList extends React.Component {
         }
     }
 
+    /**
+     * @desc when search box is empty, re-display all current listings
+     */
     resetListings(){
         this.setState({ searchResults: [] })
     }
