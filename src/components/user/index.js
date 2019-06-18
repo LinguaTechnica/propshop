@@ -1,19 +1,25 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import PropertyListingList from '../listingsList';
+import { userService } from "../../services/users";
 
 class UserDetail extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            user: {}
+        }
+    }
+
+    componentWillMount() {
+        const user = userService.get();
+        this.setState({ user });
     }
 
     render() {
         return (
             <div>
                 <h1>My Account</h1>
-                <ul>
-                    <li><Link to="/properties">My Properties</Link></li>
-                    <li><Link to="/listings">My Listings</Link></li>
-                </ul>
+                <PropertyListingList {...this.props} />
             </div>
         );
     }

@@ -6,7 +6,7 @@ class PropertyList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            properties: props.properties
+            properties: []
         }
     }
 
