@@ -1,5 +1,5 @@
 import request from 'superagent';
-import {listingsEndpoint, propertiesEndpoint} from "../config";
+import { propertiesEndpoint} from "../config";
 
 /**
  * Property Service
@@ -15,9 +15,11 @@ export class PropertyService {
 
         this.get = this.get.bind(this);
         this.all = this.all.bind(this);
+        this.update = this.update.bind(this);
+        this.create = this.create.bind(this);
+        this.delete = this.delete.bind(this);
         this.getProperties = this.getProperties.bind(this);
         this.updateStore = this.updateStore.bind(this);
-        this.update = this.update.bind(this);
     }
 
     /**
@@ -62,7 +64,7 @@ export class PropertyService {
 
     /**
      * @desc send an API request to create an new property
-     * @param listingData
+     * @param propertyData
      * @return {*}
      */
     create(propertyData) {
@@ -84,6 +86,18 @@ export class PropertyService {
             .set('Content-Type', 'application/json')
             .send(propertyData)
             .then((res) => this.updateStore(res.body))
+    }
+
+    /**
+     * @desc send request to delete a property
+     * @param propertyId
+     * @return {*}
+     */
+    delete(propertyId) {
+        console.info('INFO', 'sending list update request...');
+        return request.delete(propertiesEndpoint + `/${propertyId}`)
+            .set('Content-Type', 'application/json')
+            .then((res) => this.getProperties(res.body.userId))
     }
 }
 
