@@ -1,4 +1,8 @@
-# Cloudformation Commands
+# Rentalator Web Application
+
+Front end for the "rentalated" application
+
+## Cloudformation Commands
 
 Create stack
 ```
@@ -37,7 +41,7 @@ cp .env.development .env.test
 npm test
 ```
 
-# Service API Requirements
+## Service API Requirements
 
 To view request and response formats, visit the link below.
 Link: https://documenter.getpostman.com/view/250019/S1Zw8BDS?version=latest
@@ -60,6 +64,8 @@ POST    /api/v1/token
 ```
 
 api/register >> accounts service >> token service >> client response
+
+----
 
 # Create React App Boilerplate
 
