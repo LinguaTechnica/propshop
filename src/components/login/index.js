@@ -35,17 +35,19 @@ const LoginPage = (props) => {
             )
     };
 
-    // TODO: why does a login form need user first and last name? Remove ...
     return (
-        <form onSubmit={handleSubmit}>
-            <div className="form-group">
-                <input name="email" placeholder="Email" type="email"/>
-            </div>
-            <div className="form-group">
-                <input name="password" placeholder="Password" type="password"/>
-            </div>
-            <button className="btn btn-primary" type="submit">Login</button>
-        </form>
+        <div className="justify-content-center row py-5">
+            <form onSubmit={ handleSubmit } className="col-md-6">
+                <h1 className="">Login</h1>
+                <div className="form-group">
+                    <input className="form-control" name="email" placeholder="Email" type="email"/>
+                </div>
+                <div className="form-group">
+                    <input className="form-control" name="password" placeholder="Password" type="password"/>
+                </div>
+                <button className="btn btn-primary" type="submit">Login</button>
+            </form>
+        </div>
     )
 };
 
