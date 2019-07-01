@@ -12,37 +12,35 @@ function Navbar(props) {
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarNav">
-                <ul className="navbar-nav">
-                    { props.isAuthorized ?
-                        <div><
-                            li className="nav-item">
-                                <Link to="/me">
-                                    <i className="fas fa-user"></i> My Account</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/properties">
-                                    <i className="fas fa-home"></i> My Properties</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/listings">
-                                    <i className="fas fa-sign"></i> My Listings</Link>
-                            </li>
-                        </div>
-                        :
-                        <div>
-                            <li className="nav-item">
-                                <Link to="/login">
-                                    <span><i className="fas fa-sign-in-alt"></i> Login</span>
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/register">
-                                    <span><i className="fas fa-user-plus"></i> Signup</span>
-                                </Link>
-                            </li>
-                        </div>
-                    }
-                </ul>
+                { props.isAuthorized ?
+                    <ul className="nav">
+                        <li className="nav-item px-2">
+                            <Link to="/me">
+                                <i className="fas fa-user"> </i> My Account</Link>
+                        </li>
+                        <li className="nav-item px-2">
+                            <Link to="/properties">
+                                <i className="fas fa-home"> </i> My Properties</Link>
+                        </li>
+                        <li className="nav-item px-2">
+                            <Link to="/listings">
+                                <i className="fas fa-sign"> </i> My Listings</Link>
+                        </li>
+                    </ul>
+                    :
+                    <ul className="nav">
+                        <li className="nav-item px-2">
+                            <Link to="/login">
+                                <span><i className="fas fa-sign-in-alt"> </i> Login</span>
+                            </Link>
+                        </li>
+                        <li className="nav-item px-2">
+                            <Link to="/register">
+                                <span><i className="fas fa-user-plus"> </i> Signup</span>
+                            </Link>
+                        </li>
+                    </ul>
+                }
             </div>
         </nav>
     )
