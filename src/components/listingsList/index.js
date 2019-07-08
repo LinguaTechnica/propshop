@@ -35,7 +35,7 @@ export default class PropertyListingList extends React.Component {
     createPropertyElements() {
         // TODO: verify this expects listings with nested property (ex. {id: 1, property: {...}})
         return this.state.listings.map((listing) => {
-            return <ListingDetail key={ listing.id } {...listing} {...listing.property} />
+            return <ListingDetail key={ listing.id } {...listing} />
         })
     }
 
@@ -109,9 +109,9 @@ export default class PropertyListingList extends React.Component {
         const searchResults = this.createSearchElements();
 
         return (
-            <div>
+            <div className="py-3">
+                <h2 className="py-2 bg-light text-muted">Current Listings</h2>
                 <SearchForm search={ this.search } change={ this.dynamicSearch } reset={ this.resetListings } />
-                <h1>My Listings</h1>
                 { searchResults.length > 0 ? searchResults : listings }
             </div>
         );

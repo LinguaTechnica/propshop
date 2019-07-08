@@ -17,8 +17,8 @@ class UserDetail extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1>My Account</h1>
+            <div className="py-5">
+                <h1>Dashboard</h1>
                 <PropertyListingList {...this.props} />
             </div>
         );

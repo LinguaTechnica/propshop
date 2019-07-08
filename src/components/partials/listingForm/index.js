@@ -13,7 +13,7 @@ export class PropertyListingForm extends React.Component {
             listing: {
                 startDate: '',
                 endDate: '',
-                propertyId: this.props.propertyId
+                propertyId: this.props.id
             },
             inValidForm: true
         };
@@ -54,12 +54,12 @@ export class PropertyListingForm extends React.Component {
     render() {
         const { inValidForm } = this.state;
         return (
-            <form onSubmit={ this.handleSubmit } onChange={ this.validateForm }>
+            <form onSubmit={ this.handleSubmit } onChange={ this.validateForm } className="m-1">
                 <div className="form-group">
-                    <input name="start" onChange={ this.validateField } placeholder="Start Date" type="date"/>
+                    <input className="form-control col" name="start" onChange={ this.validateField } placeholder="Start Date" type="date"/>
                 </div>
                 <div className="form-group">
-                    <input name="end" onChange={ this.validateField } placeholder="End Date" type="date"/>
+                    <input className="form-control col" name="end" onChange={ this.validateField } placeholder="End Date" type="date"/>
                 </div>
                 <button className="btn btn-primary" type="submit" disabled={ inValidForm }>List My Property</button>
             </form>

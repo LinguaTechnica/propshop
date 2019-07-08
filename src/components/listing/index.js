@@ -6,7 +6,7 @@ export class ListingDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            listing: {},
+            listing: {...props},
             showListingForm: false
         };
 
@@ -34,8 +34,9 @@ export class ListingDetail extends React.Component {
      * @return {*}
      */
     displayListingForm() {
-        const propertyId = this.state.listing.property.id;
-        return <PropertyListingForm propertyId={ propertyId } create={ propertyListingService.create } />
+        const { property } = this.state.listing;
+        console.log('property', property);
+        return <PropertyListingForm {...property} create={ propertyListingService.create } />
     }
 
     /**
@@ -51,30 +52,37 @@ export class ListingDetail extends React.Component {
     render() {
         const toggleForm = this.state.showListingForm;
         const listingForm = this.displayListingForm();
-        const { isListed } = this.state.listing;
+        const { isListed } = this.state.listing.property;
 
         return (
-            <div>
+            <div className="media row my-3 py-3 border border-light">
                 <h3>{this.props.name}</h3>
-                <img src={this.props.image} alt="property"/>
-                <h4>End Date: { this.props.end }</h4>
-                <div>
-                    <div>{this.props.address}</div>
-                    <div>{this.props.city}, {this.props.state}</div>
-                    <div>Square footage: {this.props.sqft}</div>
-                    <div>Max Occupancy: {this.props.max_occupancy}</div>
-                </div>
+                <img src={this.props.property.image} className="mr-3" alt="property"/>
+                <div className="media-body col-8 row">
+                    <div className="col">
+                        <div>End Date: { this.props.property.end }</div>
+                        <div>{this.props.property.address}</div>
+                        <div>{this.props.property.city}, {this.props.property.state}</div>
+                        <div>Square footage: {this.props.property.sqft}</div>
+                        <div>Max Occupancy: {this.props.property.max_occupancy}</div>
+                    </div>
                 { isListed ?
-                    <div className="btn-group">
-                        <button className="btn btn-success" disabled>Listed</button>
-                        <button className="btn btn-danger" onClick={ this.unlist }>Unlist</button>
+                    <div>
+                        <div className="btn-group col">
+                            <button className="btn btn-success" disabled>Listed</button>
+                            <button className="btn btn-danger" onClick={ this.unlist }>Unlist</button>
+                        </div>
                     </div>
                     :
-                    <button className="btn btn-warning" onClick={ this.toggleListingForm }>Create Listing</button>
+                    <div>
+                        <button className="btn btn-warning row m-1" onClick={ this.toggleListingForm }>Create Listing</button>
+                        { toggleForm ?
+                            listingForm : <span> </span>
+                        }
+                    </div>
                 }
-                { toggleForm ?
-                    listingForm : <span></span>
-                }
+
+                </div>
             </div>
         )
     }
