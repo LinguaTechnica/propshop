@@ -1,5 +1,5 @@
 import request from 'superagent';
-import { propertiesEndpoint} from "../config";
+import { propertiesEndpoint } from "../config";
 
 /**
  * Property Service
@@ -56,7 +56,7 @@ export class PropertyService {
      * @return {object}
      */
     updateStore(properties) {
-        console.info('INFO', 'all properties updated')
+        console.info('INFO', 'all properties updated');
         localStorage.setItem('properties', JSON.stringify(properties));
         this.properties = properties;
         return this.properties
